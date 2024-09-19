@@ -2,13 +2,15 @@
   "name": "todolist_app",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "build": "npm install"
+    "build": "npm install",
+    "dev": "nodemon --watch backend/server.js"
   },
   "keywords": [],
   "author": "",
   "license": "CCC",
+  "type": "module",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "cloudinary": "^2.5.0",
