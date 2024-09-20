@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const taskSchema = new mongoose ({
+const taskSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
@@ -19,13 +19,16 @@ const taskSchema = new mongoose ({
     required: true
   },
   status: {
-    type: Boolean,
-    required: true
+    type: String,
+    enum: ['doing', 'done'],
+    required: true,
+    default: "doing"
   },
   priority: {
     type: String,
     enum: ['low', 'medium', 'high'],
-    required: true 
+    required: true,
+    default: 'medium'
   }
 })
 
