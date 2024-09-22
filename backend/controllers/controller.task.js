@@ -20,7 +20,7 @@ export async function addTask (req, res) {
       title: title,
       detail: details,
       date: date,
-      status: stautus,
+      status: status,
       priority: priority
     })
 
