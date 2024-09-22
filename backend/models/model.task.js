@@ -1,10 +1,9 @@
 import mongoose from 'mongoose';
 
 const taskSchema = new mongoose.Schema({
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-    required: true,
+  taskId: {
+    type: String,
+    required: true
   },
   title: {
     type: String,
@@ -16,7 +15,12 @@ const taskSchema = new mongoose.Schema({
   },
   date: {
     type: Date,
-    required: true
+    default: () => {
+      const currentDate = new Date();
+      currentDate.setDate(currentDate.getDate() + 7);
+      return currentDate;
+    },
+    required: true,
   },
   status: {
     type: String,
