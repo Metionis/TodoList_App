@@ -1,21 +1,32 @@
 import express from 'express';
 import dotenv from 'dotenv';
-
-import { protectRoute } from './middleware/protectRoute.js';
 import connectDB from './config/db.js';
 import authRoutes from './routes/route.auth.js';
-import cookieParser from 'cookie-parser';
 import taskRoute from './routes/route.task.js';
-dotenv.config()
+import cookieParser from 'cookie-parser';
+import { protectRoute } from './middleware/protectRoute.js';
 
-const app = express()
+dotenv.config();
+
+// Connect to database before starting the server
+connectDB();
+
+const app = express();
 app.use(express.json());
 app.use(cookieParser());
 
-app.use("/api/auth", authRoutes, protectRoute);
-app.use("/api/tasks", taskRoute, protectRoute);
 
-app.listen(process.env.PORT, () => {
-  console.log(`Server is started at ${process.env.PORT}`);
-  connectDB();
-})
+
+// Public route for authentication (e.g., signup, login)
+app.use("/api/auth", authRoutes);
+
+// Middleware to protect routes
+app.use(protectRoute);
+
+// Protected routes for tasks
+app.use("/api/tasks", taskRoute);
+
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log(`Server is started at http://localhost:${PORT}`);
+});
